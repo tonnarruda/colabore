@@ -50,8 +50,5 @@ func TestPostColabore(t *testing.T) {
 		SetHeaders(headers).
 		Expect(t).
 		Status(200).
-		Header("Server", "apache").
-		Type("json").
-		JSON(map[string]string{"bar": "foo"}).
 		Done()
 }

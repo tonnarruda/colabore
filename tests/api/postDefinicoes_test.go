@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -18,6 +19,7 @@ func TestPostColabore(t *testing.T) {
 
 	// Obtém os valores das variáveis de ambiente
 	cnpjLicenciado := os.Getenv("CNPJ_LICENCIADO")
+	fmt.Println(cnpjLicenciado)
 	signatureExpiration := os.Getenv("COLABORE_SIGNATURE_EXPIRATION")
 	signature := os.Getenv("COLABORE_SIGNATURE")
 
@@ -26,10 +28,28 @@ func TestPostColabore(t *testing.T) {
 		"Definicoes": []map[string]interface{}{
 			{
 				"NrInscEmpregador": "10821992",
-				"Ferias": map[string]interface{}{
-					"AntecedenciaMinima":     15,
-					"HabilitaFerias":         true,
-					"ExigeAprovacaoDoGestor": true,
+				"Estabelecimentos": []map[string]interface{}{
+					{
+						"NrInscEstabelecimento": "10821992",
+						"RemoverEndereco":       true,
+						"Endereco": map[string]interface{}{
+							"Bairro":     "Jardim das Oliveiras",
+							"Cep":        "60820110",
+							"Logradouro": "R.beija flor",
+							"Municipio":  "Fortaleza",
+							"Numero":     "38",
+							"Uf":         "CE",
+							"Latitude":   "-3.78486365221159",
+							"Longitude":  "-38.50685820",
+						},
+					},
+				},
+				"Batida": map[string]interface{}{
+					"HabilitaDigital":                      true,
+					"ExigeFoto":                            true,
+					"ExigeCerca":                           true,
+					"HabilitaReconhecimentoFacial":         true,
+					"PercentualMinimoReconhecimentoFacial": 80,
 				},
 			},
 		},

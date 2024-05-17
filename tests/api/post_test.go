@@ -27,7 +27,7 @@ func TestNetHTTP(t *testing.T) {
 			{
 				"NrInscEmpregador": "10821992",
 				"Ferias": map[string]interface{}{
-					"AntecedenciaMinima":     15,
+					"AntecedenciaMinima":     20,
 					"HabilitaFerias":         true,
 					"ExigeAprovacaoDoGestor": true,
 				},

@@ -31,7 +31,6 @@ func TestPostMensagens(t *testing.T) {
 	// Iterando sobre os casos de teste
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			//testutil.SetupEnv(tc.envs)
 
 			client := config.SetupClient()
 			req := client.R().

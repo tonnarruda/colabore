@@ -18,6 +18,12 @@ func TestPostDefinicoes(t *testing.T) {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 	}
 
+	// Captura as chaves das variáveis de ambiente a partir dos headers configurados
+	envKeys := config.GetEnvKeysFromHeaders()
+
+	// Captura o estado original das variáveis de ambiente
+	originalEnv := config.CaptureOriginalEnv(envKeys)
+
 	// Definindo uma tabela de casos de teste
 	testCases := []struct {
 		description string
@@ -66,6 +72,9 @@ func TestPostDefinicoes(t *testing.T) {
 		t.Run(tc.description, func(t *testing.T) {
 			testutil.SetupEnv(tc.envs)
 
+			// Restaurar variáveis de ambiente após cada teste
+			t.Cleanup(func() { config.RestoreEnv(originalEnv) })
+
 			client := config.SetupClient()
 			req := client.R().
 				SetHeaders(config.SetupHeaders())
@@ -82,49 +91,3 @@ func TestPostDefinicoes(t *testing.T) {
 		})
 	}
 }
-
-// package main
-
-// import (
-// 	"os"
-// 	"testing"
-
-// 	"github.com/joho/godotenv"
-// 	"github.com/stretchr/testify/assert"
-// 	"github.com/tonnarruda/API_Colabore/config"
-// )
-
-// func TestPostColabore(t *testing.T) {
-// 	if err := godotenv.Load("c:\\workspace\\colabore-api\\.env"); err != nil {
-// 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-// 	}
-
-// 	client := config.SetupClient()
-// 	body := config.DefinicoesRequestBody()
-// 	url := config.BaseURL + "/agente/licenciado/definicoes"
-// 	resp, err := client.R().
-// 		SetHeaders(config.SetupHeaders()).
-// 		SetBody(body).
-// 		Post(url)
-
-// 	assert.NoError(t, err, "Erro ao fazer a requisição")
-// 	assert.Equal(t, 200, resp.StatusCode(), "Status de resposta inesperado")
-// }
-
-// func TestPostColabore401(t *testing.T) {
-// 	if err := godotenv.Load("c:\\workspace\\colabore-api\\.env"); err != nil {
-// 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-// 	}
-// 	os.Setenv("API_KEY", "")
-
-// 	client := config.SetupClient()
-// 	body := config.DefinicoesRequestBody()
-// 	url := config.BaseURL + "/agente/licenciado/definicoes"
-// 	resp, err := client.R().
-// 		SetHeaders(config.SetupHeaders()).
-// 		SetBody(body).
-// 		Post(url)
-
-// 	assert.NoError(t, err, "Erro ao fazer a requisição")
-// 	assert.Equal(t, 403, resp.StatusCode(), "Status de resposta inesperado")
-// }

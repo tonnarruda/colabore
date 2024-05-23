@@ -18,11 +18,9 @@ func TestPostDefinicoes(t *testing.T) {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 	}
 
-	// Captura as chaves das variáveis de ambiente a partir dos headers configurados
-	envKeys := config.GetEnvKeysFromHeaders()
-
-	// Captura o estado original das variáveis de ambiente
-	originalEnv := config.CaptureOriginalEnv(envKeys)
+	defer func() {
+		os.Clearenv()
+	}()
 
 	// Definindo uma tabela de casos de teste
 	testCases := []struct {
@@ -71,9 +69,6 @@ func TestPostDefinicoes(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
 			testutil.SetupEnv(tc.envs)
-
-			// Restaurar variáveis de ambiente após cada teste
-			t.Cleanup(func() { config.RestoreEnv(originalEnv) })
 
 			client := config.SetupClient()
 			req := client.R().

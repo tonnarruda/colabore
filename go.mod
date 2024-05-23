@@ -1,4 +1,4 @@
-module github.com/tonnarruda/API_Colabore
+module github.com/patriciapersi/colabore-api
 
 go 1.22.3
 

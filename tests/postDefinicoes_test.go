@@ -5,16 +5,15 @@ import (
 	"os"
 	"testing"
 
-	"github.com/joho/godotenv"
+	"github.com/patriciapersi/colabore-api/config"
 	"github.com/stretchr/testify/assert"
-	"github.com/tonnarruda/API_Colabore/config"
 
-	testutil "github.com/tonnarruda/API_Colabore/util"
+	testutil "github.com/patriciapersi/colabore-api/util"
 )
 
 func TestPostDefinicoes(t *testing.T) {
 	// Carrega as variáveis de ambiente do arquivo .env
-	if err := godotenv.Load("c:\\workspace\\colabore-api\\.env"); err != nil {
+	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 	}
 

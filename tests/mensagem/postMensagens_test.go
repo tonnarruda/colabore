@@ -11,7 +11,7 @@ import (
 
 func TestPostMensagens(t *testing.T) {
 	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
+		t.Fatalf("%v", err)
 	}
 
 	// Definindo uma tabela de casos de teste

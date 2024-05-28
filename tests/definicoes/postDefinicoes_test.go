@@ -14,7 +14,7 @@ import (
 func TestPostDefinicoes(t *testing.T) {
 	// Carrega as variáveis de ambiente do arquivo .env
 	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
+		t.Fatalf("%v", err)
 	}
 
 	defer func() {

@@ -1,5 +1,11 @@
 package config
 
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
+
 // NewRequestBody retorna o corpo da requisição formatado conforme necessário.
 func DefinicoesRequestBody() map[string]interface{} {
 	return map[string]interface{}{
@@ -18,12 +24,12 @@ func DefinicoesRequestBody() map[string]interface{} {
 
 func MensagensRequestBody() map[string]interface{} {
 	return map[string]interface{}{
-		"ID":               "236",
+		"ID":               uuid.New().String(),
 		"TpInscEmpregador": "1",
 		"NrInscEmpregador": "10821992",
 		"MensagemTitulo":   "Feriado do maio",
 		"MensagemCorpo":    "Saiba o que funciona no feriado de maio em nossa empresa",
-		"DataMensagem":     "22/05/2024",
+		"DataMensagem":     time.Now().Format("02/01/2006"),
 		"Colaboradores": []map[string]interface{}{
 			{
 				"CPF": "60515860409",

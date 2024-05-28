@@ -5,14 +5,10 @@ import (
 	"testing"
 
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestPostMensagens(t *testing.T) {
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("%v", err)
-	}
 
 	// Definindo uma tabela de casos de teste
 	testCases := []struct {

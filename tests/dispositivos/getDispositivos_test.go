@@ -7,16 +7,9 @@ import (
 
 	"github.com/patriciapersi/colabore-api/config"
 	"github.com/stretchr/testify/assert"
-
-	testutil "github.com/patriciapersi/colabore-api/util"
 )
 
 func TestGetDispositivos(t *testing.T) {
-	// Carrega as variáveis de ambiente do arquivo .env
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("%v", err)
-	}
-
 	// Define os casos de teste em uma tabela
 	testCases := []struct {
 		description string

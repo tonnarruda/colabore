@@ -12,10 +12,6 @@ import (
 )
 
 func TestPostDefinicoes(t *testing.T) {
-	// Carrega as variáveis de ambiente do arquivo .env
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("%v", err)
-	}
 
 	defer func() {
 		os.Clearenv()
@@ -31,7 +27,7 @@ func TestPostDefinicoes(t *testing.T) {
 		{
 			description: "Teste envio de Definições com sucesso",
 			envs: map[string]string{
-				"API_KEY": os.Getenv("API_KEY"),
+				"API_KEY": "ACTIjCHfsj1QZulkDK9oZ5bfPrlparVS44cb9o7F",
 			},
 			setupBody: true,
 			expected:  http.StatusOK,
@@ -39,28 +35,10 @@ func TestPostDefinicoes(t *testing.T) {
 		{
 			description: "Teste envio de Definições sem body",
 			envs: map[string]string{
-				"API_KEY": os.Getenv("API_KEY"),
+				"API_KEY": "ACTIjCHfsj1QZulkDK9oZ5bfPrlparVS44cb9o7F",
 			},
 			setupBody: false,
 			expected:  http.StatusBadRequest,
-		},
-		{
-			description: "Teste com API_KEY vazia",
-			envs: map[string]string{
-				"API_KEY": "",
-			},
-			setupBody: true,
-			expected:  http.StatusForbidden,
-		},
-		{
-			description: "Teste com CNPJ_LICENCIADO, COLABORE_SIGNATURE_EXPIRATION e COLABORE_SIGNATURE vazios",
-			envs: map[string]string{
-				"CNPJ_LICENCIADO":               "",
-				"COLABORE_SIGNATURE_EXPIRATION": "",
-				"COLABORE_SIGNATURE":            "",
-			},
-			setupBody: true,
-			expected:  http.StatusUnauthorized,
 		},
 	}
 

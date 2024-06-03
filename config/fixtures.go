@@ -27,8 +27,8 @@ func MensagensRequestBody() map[string]interface{} {
 		"ID":               uuid.New().String(),
 		"TpInscEmpregador": "1",
 		"NrInscEmpregador": "10821992",
-		"MensagemTitulo":   "Feriado do maio",
-		"MensagemCorpo":    "Saiba o que funciona no feriado de maio em nossa empresa",
+		"MensagemTitulo":   "Teste automatizado",
+		"MensagemCorpo":    "Mensagem enviada pelo teste automatizado",
 		"DataMensagem":     time.Now().Format("02/01/2006"),
 		"Colaboradores": []map[string]interface{}{
 			{

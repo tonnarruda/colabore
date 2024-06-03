@@ -3,6 +3,7 @@ module github.com/patriciapersi/colabore-api
 go 1.22.3
 
 require (
+	github.com/bxcodec/faker/v3 v3.8.1
 	github.com/go-resty/resty/v2 v2.13.1
 	github.com/google/uuid v1.6.0
 	github.com/stretchr/testify v1.3.0

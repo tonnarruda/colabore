@@ -41,3 +41,11 @@ func MensagensRequestBody() map[string]interface{} {
 		},
 	}
 }
+
+func DeleteMensagensRequestBody(mensagemID string) map[string]interface{} {
+	return map[string]interface{}{
+		"MensagemId":       mensagemID,
+		"NrInscEmpregador": "10821992",
+		"ListaCPF":         []string{"60515860409"},
+	}
+}

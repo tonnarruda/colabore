@@ -15,30 +15,35 @@ func TestGetImagem(t *testing.T) {
 		cpf              string
 		NrInscEmpregador string
 		expected         int
+		expectedDesc     string
 	}{
 		{
 			description:      "Buscar Imagem com sucesso",
 			cpf:              "60515860409",
 			NrInscEmpregador: "10821992",
 			expected:         http.StatusOK,
+			expectedDesc:     "Sucesso",
 		},
 		{
 			description:      "Buscar Imagem com NrInsc Invalido",
 			cpf:              "60515860409",
 			NrInscEmpregador: "00000000",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "Arquivo não encontrado",
 		},
 		{
 			description:      "Buscar Imagem com NrInsc Vazio",
 			cpf:              "60515860409",
 			NrInscEmpregador: "",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "CaminhoArquivo",
 		},
 		{
 			description:      "Buscar Imagem com CPF Vazio",
 			cpf:              "",
 			NrInscEmpregador: "10821992",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "CaminhoArquivo",
 		},
 	}
 
@@ -59,6 +64,7 @@ func TestGetImagem(t *testing.T) {
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

@@ -48,7 +48,7 @@ func TestDeleteMensagens(t *testing.T) {
 			expected:    http.StatusOK,
 		},
 		{
-			description: "ID inexistente",
+			description: "ID vazio",
 			id:          "",
 			expected:    http.StatusBadRequest,
 		},

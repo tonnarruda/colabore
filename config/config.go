@@ -1,6 +1,8 @@
 package config
 
 import (
+	"os"
+
 	"github.com/go-resty/resty/v2"
 )
 
@@ -14,9 +16,9 @@ func SetupHeaders() map[string]string {
 
 	return map[string]string{
 		"Content-Type":                  "application/json",
-		"x-api-key":                     "ACTIjCHfsj1QZulkDK9oZ5bfPrlparVS44cb9o7F",
-		"cnpj-licenciado":               "63542443000124",
-		"colabore-signature-expiration": "3295537561",
-		"colabore-signature":            "MEQCIHVn/5QZgqle6RyC2Lf8O/Eomw7RNvY7Em4GRWfawFj7AiBxrI0pdWE15EjfuKsQTlGYXaeXhN96EY3i34w6iUv/zA==",
+		"x-api-key":                     os.Getenv("X_API_KEY"),
+		"cnpj-licenciado":               os.Getenv("CNPJ_LICENCIADO"),
+		"colabore-signature-expiration": os.Getenv("COLABORE_SIGNATURE_EXPIRATION"),
+		"colabore-signature":            os.Getenv("MEQCIHVn/5QZgqle6RyC2Lf8O/Eomw7RNvY7Em4GRWfawFj7AiBxrI0pdWE15EjfuKsQTlGYXaeXhN96EY3i34w6iUv/zA=="),
 	}
 }

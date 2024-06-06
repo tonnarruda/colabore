@@ -49,6 +49,7 @@ func TestGetColaboradorPremium(t *testing.T) {
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
 			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
+
 		})
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/joho/godotenv"
 )
 
 const BaseURL = "https://fortescolabore2.fortestecnologia.com.br/homolog-next/api"
@@ -13,12 +14,12 @@ func SetupClient() *resty.Client {
 }
 
 func SetupHeaders() map[string]string {
-
+	godotenv.Load(".env")
 	return map[string]string{
 		"Content-Type":                  "application/json",
 		"x-api-key":                     os.Getenv("X_API_KEY"),
 		"cnpj-licenciado":               os.Getenv("CNPJ_LICENCIADO"),
 		"colabore-signature-expiration": os.Getenv("COLABORE_SIGNATURE_EXPIRATION"),
-		"colabore-signature":            os.Getenv("MEQCIHVn/5QZgqle6RyC2Lf8O/Eomw7RNvY7Em4GRWfawFj7AiBxrI0pdWE15EjfuKsQTlGYXaeXhN96EY3i34w6iUv/zA=="),
+		"colabore-signature":            os.Getenv("COLABORE_SIGNATURE"),
 	}
 }

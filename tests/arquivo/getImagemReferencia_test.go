@@ -6,9 +6,15 @@ import (
 
 	"github.com/patriciapersi/colabore-api/config"
 	"github.com/stretchr/testify/assert"
+
+	testutil "github.com/patriciapersi/colabore-api/util"
 )
 
 func TestGetImagem(t *testing.T) {
+	if err := testutil.LoadEnv(); err != nil {
+		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
+		t.Fatalf("%v", err)
+	}
 
 	testCases := []struct {
 		description      string

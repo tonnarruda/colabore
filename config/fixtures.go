@@ -49,3 +49,20 @@ func DeleteMensagensRequestBody(mensagemID string) map[string]interface{} {
 		"ListaCPF":         []string{"60515860409"},
 	}
 }
+
+func PostInformacoesFeriasEmpregadoRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Colaboradores": []interface{}{
+			map[string]interface{}{
+				"CPF":                            "20306514940",
+				"NrInscEmpregador":               "10821992",
+				"Matricula":                      "000034",
+				"SolicitouAdiantamento13":        false,
+				"DiasDisponiveisAbonoPecuniario": 10,
+				"DiasDisponiveis":                30,
+				"InicioPeriodoConcessivo":        "2022-06-29",
+				"FimPeriodoConcessivo":           "2023-07-30",
+			},
+		},
+	}
+}

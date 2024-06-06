@@ -6,14 +6,21 @@ import (
 
 	"github.com/patriciapersi/colabore-api/config"
 	"github.com/stretchr/testify/assert"
+
+	testutil "github.com/patriciapersi/colabore-api/util"
 )
 
 func TestGetImagem(t *testing.T) {
+	if err := testutil.LoadEnv(); err != nil {
+		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
+		t.Fatalf("%v", err)
+	}
 
 	testCases := []struct {
 		description      string
 		cpf              string
 		NrInscEmpregador string
+		header           map[string]string
 		expected         int
 		expectedDesc     string
 	}{
@@ -21,6 +28,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com sucesso",
 			cpf:              "60515860409",
 			NrInscEmpregador: "10821992",
+			header:           config.SetupHeaders(),
 			expected:         http.StatusOK,
 			expectedDesc:     "Sucesso",
 		},
@@ -28,6 +36,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com NrInsc Invalido",
 			cpf:              "60515860409",
 			NrInscEmpregador: "00000000",
+			header:           config.SetupHeaders(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "Arquivo não encontrado",
 		},
@@ -35,6 +44,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com NrInsc Vazio",
 			cpf:              "60515860409",
 			NrInscEmpregador: "",
+			header:           config.SetupHeaders(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "CaminhoArquivo",
 		},
@@ -42,8 +52,17 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com CPF Vazio",
 			cpf:              "",
 			NrInscEmpregador: "10821992",
+			header:           config.SetupHeaders(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "CaminhoArquivo",
+		},
+		{
+			description:      "Buscar Imagem com sucesso",
+			cpf:              "60515860409",
+			NrInscEmpregador: "10821992",
+			header:           map[string]string{},
+			expected:         http.StatusUnauthorized,
+			expectedDesc:     "Unauthorized",
 		},
 	}
 
@@ -58,7 +77,7 @@ func TestGetImagem(t *testing.T) {
 			}
 
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
 				Get(url)
 

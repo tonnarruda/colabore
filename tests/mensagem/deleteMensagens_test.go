@@ -7,6 +7,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/google/uuid"
 	"github.com/patriciapersi/colabore-api/config"
+	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,6 +18,10 @@ func setupTest() (string, *resty.Client) {
 
 // Testa a exclusão de uma mensagem
 func TestDeleteMensagens(t *testing.T) {
+	if err := testutil.LoadEnv(); err != nil {
+		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
+		t.Fatalf("%v", err)
+	}
 	tests := []struct {
 		description string
 		id          string

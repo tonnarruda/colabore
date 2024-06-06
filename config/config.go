@@ -16,7 +16,7 @@ func SetupHeaders() map[string]string {
 		"Content-Type":                  "application/json",
 		"x-api-key":                     "ACTIjCHfsj1QZulkDK9oZ5bfPrlparVS44cb9o7F",
 		"cnpj-licenciado":               "63542443000124",
-		"colabore-signature-expiration": "1709743637",
-		"colabore-signature":            "MEQCIHzCN4gb+VSQqTmYLnHCjo8pQASiuQ4Nv+B1Jd9jwFtWAiBO0ZdfSciwKOTkPf6LIJHMtyHSGpLzLXgFXH1znVxrVA==",
+		"colabore-signature-expiration": "3295537561",
+		"colabore-signature":            "MEQCIHVn/5QZgqle6RyC2Lf8O/Eomw7RNvY7Em4GRWfawFj7AiBxrI0pdWE15EjfuKsQTlGYXaeXhN96EY3i34w6iUv/zA==",
 	}
 }

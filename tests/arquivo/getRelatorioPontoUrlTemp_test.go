@@ -19,6 +19,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 		description      string
 		cpf              string
 		nrInscEmpregador string
+		header           map[string]string
 		matricula        string
 		expected         int
 	}{
@@ -26,6 +27,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			description:      "Buscar Relatorio de Ponto com Sucesso",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
+			header:           config.SetupHeaders(),
 			matricula:        "000031",
 			expected:         http.StatusOK,
 		},
@@ -33,6 +35,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			description:      "Buscar Relatorio de Ponto nrInsc Vazio",
 			cpf:              "60515860409",
 			nrInscEmpregador: "",
+			header:           config.SetupHeaders(),
 			matricula:        "000031",
 			expected:         http.StatusBadRequest,
 		},
@@ -40,6 +43,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			description:      "Buscar Relatorio de Ponto CPF Vazio",
 			cpf:              "",
 			nrInscEmpregador: "10821992",
+			header:           config.SetupHeaders(),
 			matricula:        "000031",
 			expected:         http.StatusBadRequest,
 		},
@@ -47,8 +51,17 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			description:      "Buscar Relatorio de Ponto Matricula Vazio",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
+			header:           config.SetupHeaders(),
 			matricula:        "",
 			expected:         http.StatusBadRequest,
+		},
+		{
+			description:      "Buscar Relatorio de Ponto com Sucesso",
+			cpf:              "60515860409",
+			nrInscEmpregador: "10821992",
+			header:           map[string]string{},
+			matricula:        "000031",
+			expected:         http.StatusUnauthorized,
 		},
 	}
 
@@ -65,7 +78,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			}
 
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
 				Get(url)
 

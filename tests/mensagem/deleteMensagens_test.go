@@ -54,19 +54,19 @@ func TestDeleteMensagens(t *testing.T) {
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.description, func(t *testing.T) {
+	for _, tc := range tests {
+		t.Run(tc.description, func(t *testing.T) {
 			url, client := setupTest()
 
-			deleteBody := config.DeleteMensagensRequestBody(tt.id)
+			deleteBody := config.DeleteMensagensRequestBody(tc.id)
 			req := client.R().
 				SetHeaders(config.SetupHeaders()).
 				SetBody(deleteBody)
 
 			resp, err := req.Delete(url)
 
-			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tt.description)
-			assert.Equal(t, tt.expected, resp.StatusCode(), "Status de resposta inesperado para %s", tt.description)
+			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tc.description)
+			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado para %s", tc.description)
 		})
 	}
 }

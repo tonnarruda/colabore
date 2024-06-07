@@ -29,13 +29,13 @@ func TestPostDispositivos(t *testing.T) {
 			expected:    http.StatusOK,
 		},
 		{
-			description: "Inserir Dispositivo com Sucesso",
+			description: "Tentar inserir dispositivo sem Body",
 			setupBody:   false,
 			header:      config.SetupHeaders(),
 			expected:    http.StatusBadRequest,
 		},
 		{
-			description: "Inserir Dispositivo com Sucesso",
+			description: "Tentar inserir dispositivo sem header",
 			setupBody:   true,
 			header:      map[string]string{},
 			expected:    http.StatusUnauthorized,

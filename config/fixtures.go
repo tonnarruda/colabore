@@ -70,8 +70,8 @@ func PostInformacoesFeriasEmpregadoRequestBody() map[string]interface{} {
 func PostDispositivosRequestBody() map[string]interface{} {
 	return map[string]interface{}{
 		"Cnpj":          "63542443000124",
-		"DispositivoId": uuid.New().String(),
-		"Status":        0,
-		"ListaEmpresas": []string{"98408227"},
+		"DispositivoId": "31e18fe4151b96cb",
+		"Status":        1,
+		"ListaEmpresas": []string{"10821992"},
 	}
 }

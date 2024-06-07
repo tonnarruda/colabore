@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
 
@@ -60,8 +59,6 @@ func TestPostDispositivos(t *testing.T) {
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
-
-			fmt.Printf("Corpo da resposta: %s\n", resp.Body())
 		})
 	}
 }

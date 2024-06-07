@@ -68,18 +68,17 @@ func TestGetImagem(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Arquivo/ImagemReferencia"
 
+			api := config.SetupApi()
 			queryParams := map[string]string{
 				"CPF":              tc.cpf,
 				"NrInscEmpregador": tc.NrInscEmpregador,
 			}
 
-			resp, err := client.R().
+			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(url)
+				Get(api.Endpoints["GETarquivoImagemReferencia"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

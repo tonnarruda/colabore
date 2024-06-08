@@ -16,28 +16,32 @@ func TestPostDispositivos(t *testing.T) {
 	}
 	// Define os casos de teste em uma tabela
 	testCases := []struct {
-		description string
-		setupBody   bool
-		header      map[string]string
-		expected    int
+		description  string
+		setupBody    bool
+		header       map[string]string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Inserir Dispositivo com Sucesso",
-			setupBody:   true,
-			header:      config.SetupHeaders(),
-			expected:    http.StatusOK,
+			description:  "Inserir Dispositivo com Sucesso",
+			setupBody:    true,
+			header:       config.SetupHeaders(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "Tentar inserir dispositivo sem Body",
-			setupBody:   false,
-			header:      config.SetupHeaders(),
-			expected:    http.StatusBadRequest,
+			description:  "Tentar inserir dispositivo sem Body",
+			setupBody:    false,
+			header:       config.SetupHeaders(),
+			expected:     http.StatusBadRequest,
+			expectedDesc: "Corpo da requisição não contém dados",
 		},
 		{
-			description: "Tentar inserir dispositivo sem header",
-			setupBody:   true,
-			header:      map[string]string{},
-			expected:    http.StatusUnauthorized,
+			description:  "Tentar inserir dispositivo sem header",
+			setupBody:    true,
+			header:       map[string]string{},
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
@@ -59,6 +63,7 @@ func TestPostDispositivos(t *testing.T) {
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

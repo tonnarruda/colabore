@@ -78,3 +78,20 @@ func PostDispositivosRequestBody() map[string]interface{} {
 		"ListaEmpresas": []string{"10821992"},
 	}
 }
+
+func PostSolicitaFeriasRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Ferias": []interface{}{
+			map[string]interface{}{
+				"CPF":                      cpf,
+				"NrInscEmpregador":         nrInsc,
+				"Matricula":                "000031",
+				"SolicitouAdiantamento13":  true,
+				"SolicitouAbonoPecuniario": true,
+				"StatusSolicitacao":        4,
+				"InicioPeriodoGozo":        "2024-06-29",
+				"FimPeriodoGozo":           "2024-07-08",
+			},
+		},
+	}
+}

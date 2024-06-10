@@ -51,7 +51,7 @@ func TestPostDefinicoes(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetBody(body).
-				Post(api.EndpointsAgente["POSTlicenciadoDefinicoes"])
+				Post(api.EndpointsAgente["LicenciadoDefinicoes"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

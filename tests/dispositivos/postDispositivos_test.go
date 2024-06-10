@@ -60,7 +60,7 @@ func TestPostDispositivos(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetBody(body).
-				Post(api.EndpointsAgente["POSTdispositivosStatus"])
+				Post(api.EndpointsAgente["DispositivosStatus"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

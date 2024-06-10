@@ -9,45 +9,58 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetFerias(t *testing.T) {
+func TestFerias(t *testing.T) {
 	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 		t.Fatalf("%v", err)
 	}
 
 	testCases := []struct {
-		description string
-		nrInsc      string
-		expected    int
+		description  string
+		nrInsc       string
+		header       map[string]string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Busca de Ferias com Sucesso",
-			nrInsc:      "63542443",
-			expected:    http.StatusOK,
+			description:  "Busca de Ferias com Sucesso",
+			nrInsc:       "63542443",
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "Tentativa de Buscar Férias com nrInsc vazio",
-			nrInsc:      "",
-			expected:    http.StatusBadRequest,
+			description:  "Tentativa de Buscar Férias com nrInsc vazio",
+			nrInsc:       "",
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusBadRequest,
+			expectedDesc: "'Nr Insc Empregador' deve ser informado.",
+		},
+		{
+			description:  "Tentativa de Buscar Férias com nrInsc vazio",
+			nrInsc:       "63542443",
+			header:       map[string]string{},
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Ferias"
 
+			api := config.SetupApi()
 			queryParams := map[string]string{
 				"nrInscEmpregador": tc.nrInsc,
 			}
 
-			resp, err := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(url)
+				Get(api.EndpointsAgente["Ferias"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

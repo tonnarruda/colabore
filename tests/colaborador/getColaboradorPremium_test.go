@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetColaboradorPremium(t *testing.T) {
+func TestColaboradorPreemium(t *testing.T) {
 
 	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
@@ -41,7 +41,7 @@ func TestGetColaboradorPremium(t *testing.T) {
 
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
-				Get(api.EndpointsAgente["GETcolaboradorPremium"])
+				Get(api.EndpointsAgente["ColaboradorPreemium"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

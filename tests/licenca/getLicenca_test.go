@@ -16,26 +16,36 @@ func TestGetLicenca(t *testing.T) {
 	}
 
 	testCases := []struct {
-		description string
-		expected    int
+		description  string
+		header       map[string]string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Busca de Reconhecimento Facial com Sucesso",
-			expected:    http.StatusOK,
+			description:  "Busca de Reconhecimento Facial com Sucesso",
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
+		},
+		{
+			description:  "Busca de Reconhecimento Facial com Sucesso",
+			header:       map[string]string{},
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Licenca/ReconhecimentoFacial"
 
-			resp, err := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
-				Get(url)
+			api := config.SetupApi()
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
+				Get(api.EndpointsAgente["LicencaReconhecimentoFacial"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

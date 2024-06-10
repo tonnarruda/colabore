@@ -78,7 +78,7 @@ func TestGetImagem(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(api.EndpointsAgente["GETarquivoImagemReferencia"])
+				Get(api.EndpointsAgente["ImagemReferencia"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

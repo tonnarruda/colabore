@@ -17,38 +17,51 @@ func TestGetImagem(t *testing.T) {
 	}
 
 	testCases := []struct {
-		description string
-		nome        string
-		expected    int
+		description  string
+		nome         string
+		header       map[string]string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Buscar Imagem com Nome Inexistente",
-			nome:        faker.Word(),
-			expected:    http.StatusBadRequest,
+			description:  "Buscar Imagem com Nome Inexistente",
+			nome:         faker.Word(),
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusBadRequest,
+			expectedDesc: "The specified key does not exist.",
 		},
 		{
-			description: "Buscar Imagem com Nome Vazio",
-			nome:        "",
-			expected:    http.StatusBadRequest,
+			description:  "Buscar Imagem com Nome Vazio",
+			nome:         "",
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusBadRequest,
+			expectedDesc: "Corpo da requisicao não contém chave",
+		},
+		{
+			description:  "Buscar Imagem - Unauthirized",
+			nome:         faker.Word(),
+			header:       map[string]string{},
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Imagem"
 
+			api := config.SetupApi()
 			queryParams := map[string]string{
 				"Nome": tc.nome,
 			}
 
-			resp, err := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(url)
+				Get(api.EndpointsAgente["GETimagem"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

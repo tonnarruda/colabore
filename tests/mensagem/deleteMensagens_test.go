@@ -1,19 +1,30 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"testing"
 
-	"github.com/go-resty/resty/v2"
 	"github.com/google/uuid"
 	"github.com/patriciapersi/colabore-api/config"
 	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
-// Configuração comum para todos os testes
-func setupTest() (string, *resty.Client) {
-	return config.BaseURL + "/agente/mensagem", config.SetupClient()
+func precondition() string {
+	api := config.SetupApi()
+	requestBody := config.MensagensRequestBody()
+	id := requestBody["ID"].(string)
+	resp, _ := api.Client.R().
+		SetHeaders(config.SetupHeadersAgente()).
+		SetBody(requestBody).
+		Post(api.EndpointsAgente["Mensagem"])
+
+	if resp.StatusCode() != http.StatusOK {
+		log.Printf("Unexpected status code: %d", resp.StatusCode())
+	}
+
+	return id
 }
 
 // Testa a exclusão de uma mensagem
@@ -23,50 +34,56 @@ func TestDeleteMensagens(t *testing.T) {
 		t.Fatalf("%v", err)
 	}
 	testsCases := []struct {
-		description string
-		id          string
-		expected    int
+		description  string
+		header       map[string]string
+		id           string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Mensagem existente",
-			id: func() string {
-				url, client := setupTest()
-				requestBody := config.MensagensRequestBody()
-				id := requestBody["ID"].(string)
-				reqPost := client.R().
-					SetHeaders(config.SetupHeadersAgente()).
-					SetBody(requestBody)
-
-				reqPost.Post(url)
-				return id
-			}(),
-			expected: http.StatusOK,
+			description:  "Mensagem existente",
+			header:       config.SetupHeadersAgente(),
+			id:           precondition(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "ID inexistente",
-			id:          uuid.New().String(),
-			expected:    http.StatusOK,
+			description:  "ID inexistente",
+			header:       config.SetupHeadersAgente(),
+			id:           uuid.New().String(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "ID vazio",
-			id:          "",
-			expected:    http.StatusBadRequest,
+			description:  "ID vazio",
+			header:       config.SetupHeadersAgente(),
+			id:           "",
+			expected:     http.StatusBadRequest,
+			expectedDesc: "Corpo da requisição não contém chaves: MensagemId",
+		},
+		{
+			description:  "Unauthorized",
+			header:       map[string]string{},
+			id:           "",
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
 	for _, tc := range testsCases {
 		t.Run(tc.description, func(t *testing.T) {
-			url, client := setupTest()
 
-			deleteBody := config.DeleteMensagensRequestBody(tc.id)
-			req := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
-				SetBody(deleteBody)
+			api := config.SetupApi()
 
-			resp, err := req.Delete(url)
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
+				SetBody(config.DeleteMensagensRequestBody(tc.id)).
+				Delete(api.EndpointsAgente["Mensagem"])
 
-			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tc.description)
-			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado para %s", tc.description)
+			assert.NoError(t, err, "Erro ao fazer a requisição")
+			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
+
 		})
 	}
 }

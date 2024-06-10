@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetDispositivos(t *testing.T) {
+func TestDispositivos(t *testing.T) {
 	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 		t.Fatalf("%v", err)
@@ -57,7 +57,7 @@ func TestGetDispositivos(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(api.EndpointsAgente["GETdispositivos"])
+				Get(api.EndpointsAgente["Dispositivos"])
 
 			// Verifica os resultados do teste
 			assert.NoError(t, err, "Erro ao fazer a requisição")

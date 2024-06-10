@@ -47,7 +47,7 @@ func TestGetColaboradorFremium(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(api.EndpointsAgente["GETcolaboradorFreemium"])
+				Get(api.EndpointsAgente["ColaboradorFreemium"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

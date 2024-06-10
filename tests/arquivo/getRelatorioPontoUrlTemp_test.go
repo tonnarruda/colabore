@@ -78,7 +78,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(api.EndpointsAgente["GETarquivoRelatorioPontoURLTemporaria"])
+				Get(api.EndpointsAgente["ArquivoRelatorioPontoURLTemporaria"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

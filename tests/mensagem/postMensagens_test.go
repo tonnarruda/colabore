@@ -39,7 +39,7 @@ func TestPostMensagens(t *testing.T) {
 
 			client := config.SetupClient()
 			req := client.R().
-				SetHeaders(config.SetupHeaders())
+				SetHeaders(config.SetupHeadersAgente())
 
 			// Configura o corpo da requisição se necessário
 			if tc.setupBody {

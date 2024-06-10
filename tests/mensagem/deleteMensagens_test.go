@@ -22,7 +22,7 @@ func TestDeleteMensagens(t *testing.T) {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 		t.Fatalf("%v", err)
 	}
-	tests := []struct {
+	testsCases := []struct {
 		description string
 		id          string
 		expected    int
@@ -34,7 +34,7 @@ func TestDeleteMensagens(t *testing.T) {
 				requestBody := config.MensagensRequestBody()
 				id := requestBody["ID"].(string)
 				reqPost := client.R().
-					SetHeaders(config.SetupHeaders()).
+					SetHeaders(config.SetupHeadersAgente()).
 					SetBody(requestBody)
 
 				reqPost.Post(url)
@@ -54,13 +54,13 @@ func TestDeleteMensagens(t *testing.T) {
 		},
 	}
 
-	for _, tc := range tests {
+	for _, tc := range testsCases {
 		t.Run(tc.description, func(t *testing.T) {
 			url, client := setupTest()
 
 			deleteBody := config.DeleteMensagensRequestBody(tc.id)
 			req := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(config.SetupHeadersAgente()).
 				SetBody(deleteBody)
 
 			resp, err := req.Delete(url)

@@ -31,7 +31,7 @@ func TestGetLicenca(t *testing.T) {
 			url := config.BaseURL + "/agente/Licenca/ReconhecimentoFacial"
 
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(config.SetupHeadersAgente()).
 				Get(url)
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")

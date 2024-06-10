@@ -31,7 +31,7 @@ func TestGetColaboradorPremium(t *testing.T) {
 			url := config.BaseURL + "/agente/Colaborador/Premium"
 
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(config.SetupHeadersAgente()).
 				Get(url)
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")

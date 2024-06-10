@@ -28,7 +28,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com sucesso",
 			cpf:              "60515860409",
 			NrInscEmpregador: "10821992",
-			header:           config.SetupHeaders(),
+			header:           config.SetupHeadersAgente(),
 			expected:         http.StatusOK,
 			expectedDesc:     "Sucesso",
 		},
@@ -36,7 +36,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com NrInsc Invalido",
 			cpf:              "60515860409",
 			NrInscEmpregador: "00000000",
-			header:           config.SetupHeaders(),
+			header:           config.SetupHeadersAgente(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "Arquivo não encontrado",
 		},
@@ -44,7 +44,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com NrInsc Vazio",
 			cpf:              "60515860409",
 			NrInscEmpregador: "",
-			header:           config.SetupHeaders(),
+			header:           config.SetupHeadersAgente(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "CaminhoArquivo",
 		},
@@ -52,7 +52,7 @@ func TestGetImagem(t *testing.T) {
 			description:      "Buscar Imagem com CPF Vazio",
 			cpf:              "",
 			NrInscEmpregador: "10821992",
-			header:           config.SetupHeaders(),
+			header:           config.SetupHeadersAgente(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "CaminhoArquivo",
 		},
@@ -78,7 +78,7 @@ func TestGetImagem(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(api.Endpoints["GETarquivoImagemReferencia"])
+				Get(api.EndpointsAgente["GETarquivoImagemReferencia"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

@@ -25,13 +25,13 @@ func TestPostDefinicoesFerias(t *testing.T) {
 		{
 			description: "Teste envio de Definições com sucesso",
 			setupBody:   true,
-			header:      config.SetupHeaders(),
+			header:      config.SetupHeadersAgente(),
 			expected:    http.StatusOK,
 		},
 		{
 			description: "Teste envio de Definições sem body",
 			setupBody:   false,
-			header:      config.SetupHeaders(),
+			header:      config.SetupHeadersAgente(),
 			expected:    http.StatusBadRequest,
 		},
 		{

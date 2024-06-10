@@ -53,7 +53,7 @@ func TestGetTimeZone(t *testing.T) {
 
 			// Faz a requisição GET
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(config.SetupHeadersAgente()).
 				Get(url)
 
 			// Verifica os resultados do teste

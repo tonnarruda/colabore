@@ -25,14 +25,14 @@ func TestPostDispositivos(t *testing.T) {
 		{
 			description:  "Inserir Dispositivo com Sucesso",
 			setupBody:    true,
-			header:       config.SetupHeaders(),
+			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
 			description:  "Tentar inserir dispositivo sem Body",
 			setupBody:    false,
-			header:       config.SetupHeaders(),
+			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusBadRequest,
 			expectedDesc: "Corpo da requisição não contém dados",
 		},

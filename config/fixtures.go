@@ -89,9 +89,20 @@ func PostSolicitaFeriasRequestBody() map[string]interface{} {
 				"SolicitouAdiantamento13":  true,
 				"SolicitouAbonoPecuniario": true,
 				"StatusSolicitacao":        4,
-				"InicioPeriodoGozo":        "2024-06-29",
-				"FimPeriodoGozo":           "2024-07-08",
+				"InicioPeriodoGozo":        time.Now().Format("2006-01-02"),
+				"FimPeriodoGozo":           time.Now().AddDate(0, 0, 20).Format("2006-01-02"),
 			},
 		},
+	}
+}
+
+func PostSolicitaFeriasAPPRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"NrInscEmpregador":         nrInsc,
+		"Matricula":                "000031",
+		"SolicitouAdiantamento13":  true,
+		"SolicitouAbonoPecuniario": true,
+		"InicioPeriodoGozo":        time.Now().Format("2006-01-02"),
+		"FimPeriodoGozo":           time.Now().AddDate(0, 0, 20).Format("2006-01-02"),
 	}
 }

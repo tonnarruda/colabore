@@ -41,7 +41,7 @@ func TestGetColaboradorFremium(t *testing.T) {
 			}
 
 			resp, err := client.R().
-				SetHeaders(config.SetupHeaders()).
+				SetHeaders(config.SetupHeadersAgente()).
 				SetQueryParams(queryParams).
 				Get(url)
 

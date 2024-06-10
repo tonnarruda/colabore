@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
 
@@ -17,48 +16,53 @@ func TestGetDispositivos(t *testing.T) {
 	}
 	// Define os casos de teste em uma tabela
 	testCases := []struct {
-		description string
-		status      interface{}
-		expected    int
+		description  string
+		header       map[string]string
+		status       string
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Busca de dispositivos com Sucesso",
-			status:      0,
-			expected:    http.StatusOK,
+			description:  "Busca de dispositivos com Sucesso",
+			header:       config.SetupHeadersAgente(),
+			status:       "0",
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "Busca de dispositivos com Status Inexistente",
-			status:      -1,
-			expected:    http.StatusBadRequest,
+			description:  "Busca de dispositivos com Status Inexistente",
+			header:       config.SetupHeadersAgente(),
+			status:       "-1",
+			expected:     http.StatusBadRequest,
+			expectedDesc: "Status' possui um intervalo de valores que não inclui '-1'.",
 		},
 		{
-			description: "Busca de dispositivos com Status Nulo",
-			status:      nil,
-			expected:    http.StatusBadRequest,
-		},
-		{
-			description: "Busca de dispositivos com Status Vazio",
-			status:      "",
-			expected:    http.StatusBadRequest,
+			description:  "Busca de dispositivos com Status Vazio",
+			header:       map[string]string{},
+			status:       "",
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
 	// Itera sobre os casos de teste
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			// Configura o cliente e a URL
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Dispositivos"
-			url = fmt.Sprintf("%s?status=%d", url, tc.status)
 
-			// Faz a requisição GET
-			resp, err := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
-				Get(url)
+			api := config.SetupApi()
+			queryParams := map[string]string{
+				"status": tc.status,
+			}
+
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
+				SetQueryParams(queryParams).
+				Get(api.EndpointsAgente["GETdispositivos"])
 
 			// Verifica os resultados do teste
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

@@ -19,6 +19,7 @@ func TestGetColaboradorPremium(t *testing.T) {
 		description      string
 		cpf              string
 		nrInscEmpregador string
+		header           map[string]string
 		expected         int
 		expectedDesc     string
 	}{
@@ -26,6 +27,7 @@ func TestGetColaboradorPremium(t *testing.T) {
 			description:      "Busca de candidato - Não Encontrado",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
+			header:           config.SetupHeadersAgente(),
 			expected:         http.StatusBadRequest,
 			expectedDesc:     "Candidato com dados preenchidos não encontrado",
 		},
@@ -33,18 +35,17 @@ func TestGetColaboradorPremium(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Candidato"
 
+			api := config.SetupApi()
 			queryParams := map[string]string{
 				"CPF":              tc.cpf,
 				"NrInscEmpregador": tc.nrInscEmpregador,
 			}
 
-			resp, err := client.R().
-				SetHeaders(config.SetupHeadersAgente()).
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(url)
+				Get(api.EndpointsAgente["GETcandidato"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

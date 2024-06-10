@@ -67,9 +67,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
-			client := config.SetupClient()
-			url := config.BaseURL + "/agente/Arquivo/RelatorioPonto/URLTemporaria"
-
+			api := config.SetupApi()
 			queryParams := map[string]string{
 				"CPF":              tc.cpf,
 				"NrInscEmpregador": tc.nrInscEmpregador,
@@ -77,10 +75,10 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 				"AnoMes":           "202401",
 			}
 
-			resp, err := client.R().
+			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetQueryParams(queryParams).
-				Get(url)
+				Get(api.EndpointsAgente["GETarquivoRelatorioPontoURLTemporaria"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

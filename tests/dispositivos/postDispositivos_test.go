@@ -48,18 +48,19 @@ func TestPostDispositivos(t *testing.T) {
 	// Itera sobre os casos de teste
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
+			api := config.SetupApi()
 
-			client := config.SetupClient()
-			req := client.R().
-				SetHeaders(tc.header)
-
-			// Configura o corpo da requisição se necessário
+			// Configura os parâmetros do corpo da requisição se necessário
+			var body interface{}
 			if tc.setupBody {
-				req.SetBody(config.PostDispositivosRequestBody())
+				body = config.PostDispositivosRequestBody()
 
 			}
 
-			resp, err := req.Post(config.BaseURL + "/agente/Dispositivos/Status")
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
+				SetBody(body).
+				Post(api.EndpointsAgente["POSTdispositivosStatus"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")

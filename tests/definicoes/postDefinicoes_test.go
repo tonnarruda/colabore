@@ -16,38 +16,47 @@ func TestPostDefinicoes(t *testing.T) {
 	}
 
 	testCases := []struct {
-		description string
-		setupBody   bool
-		expected    int
+		description  string
+		header       map[string]string
+		setupBody    bool
+		expected     int
+		expectedDesc string
 	}{
 		{
-			description: "Teste envio de Definições com sucesso",
-			setupBody:   true,
-			expected:    http.StatusOK,
+			description:  "Teste envio de Definições com sucesso",
+			header:       config.SetupHeadersAgente(),
+			setupBody:    true,
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
 		},
 		{
-			description: "Teste envio de Definições sem body",
-			setupBody:   false,
-			expected:    http.StatusBadRequest,
+			description:  "Teste envio de Definições sem body",
+			header:       config.SetupHeadersAgente(),
+			setupBody:    false,
+			expected:     http.StatusBadRequest,
+			expectedDesc: "ERRO",
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.description, func(t *testing.T) {
+			api := config.SetupApi()
 
-			client := config.SetupClient()
-			req := client.R().
-				SetHeaders(config.SetupHeadersAgente())
-
-			// Configura o corpo da requisição se necessário
+			// Configura os parâmetros do corpo da requisição se necessário
+			var body interface{}
 			if tc.setupBody {
-				req.SetBody(config.DefinicoesRequestBody())
+				body = config.DefinicoesRequestBody()
 			}
 
-			resp, err := req.Post(config.BaseURL + "/agente/licenciado/definicoes")
+			resp, err := api.Client.R().
+				SetHeaders(tc.header).
+				SetBody(body).
+				Post(api.EndpointsAgente["POSTlicenciadoDefinicoes"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
+
 }

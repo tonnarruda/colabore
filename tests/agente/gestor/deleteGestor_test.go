@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDeleteSolicitaFerias_(t *testing.T) {
+func TestDeleteGestor(t *testing.T) {
 	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 	}

@@ -112,20 +112,20 @@ func GestoresRequestBody() map[string]interface{} {
 		"Gestores": []interface{}{
 			map[string]interface{}{
 				"NrInscEmpregador": nrInsc,
-				"CPFGestor":        cpf,
-				"MatriculaGestor":  "000031",
+				"CPFGestor":        "12658729375",
+				"MatriculaGestor":  "000043",
 				"ListaGeridos": []interface{}{
 					map[string]interface{}{
-						"CPF":              cpf,
-						"Matricula":        "000031",
+						"CPF":              "12658729375",
+						"Matricula":        "000043",
 						"NrInscEmpregador": nrInsc,
 						"NomeFantasia":     "PERSI",
 					},
 				},
 				"Geridos": []interface{}{
 					map[string]interface{}{
-						"CPF":       cpf,
-						"Matricula": "000031",
+						"CPF":       "12658729375",
+						"Matricula": "000043",
 					},
 				},
 			},

@@ -51,20 +51,14 @@ func TestPostMensagens(t *testing.T) {
 		t.Run(tc.description, func(t *testing.T) {
 			api := config.SetupApi()
 
+			requestBody := config.MensagensRequestBody()
+			id := requestBody["ID"].(string)
+
 			var body interface{}
 			if tc.setupBody {
-				body = config.MensagensRequestBody()
+				body = requestBody
 
 			}
-
-			// req := client.R().
-			// 	SetHeaders(config.SetupHeadersAgente())
-
-			// // Configura o corpo da requisição se necessário
-			// if tc.setupBody {
-			// 	req.SetBody(config.MensagensRequestBody())
-
-			// }
 
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
@@ -74,6 +68,18 @@ func TestPostMensagens(t *testing.T) {
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
 			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
+
+			if tc.header != nil && tc.setupBody {
+				deleteDataAfterTest(id)
+			}
 		})
 	}
+}
+
+func deleteDataAfterTest(id string) {
+	api := config.SetupApi()
+	api.Client.R().
+		SetHeaders(config.SetupHeadersAgente()).
+		SetBody(config.DeleteMensagensRequestBody(id)).
+		Delete(api.EndpointsAgente["Mensagem"])
 }

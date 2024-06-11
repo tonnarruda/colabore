@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPostSolicitaFerias_(t *testing.T) {
+func TestDeleteSolicitaFerias_(t *testing.T) {
 	if err := testutil.LoadEnv(); err != nil {
 		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
 	}
@@ -24,21 +24,21 @@ func TestPostSolicitaFerias_(t *testing.T) {
 		expectedDesc string
 	}{
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Deleção de Gestores",
 			setupBody:    true,
 			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Deleção de Gestores - Sem body",
 			setupBody:    false,
 			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusBadRequest,
-			expectedDesc: "Corpo da requisição não contém",
+			expectedDesc: "Não há informação a ser processada.",
 		},
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Deleção de Gestores - Unauthorized",
 			setupBody:    false,
 			header:       map[string]string{},
 			expected:     http.StatusUnauthorized,
@@ -58,7 +58,7 @@ func TestPostSolicitaFerias_(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetBody(body).
-				Post(api.EndpointsAgente["Gestor"])
+				Delete(api.EndpointsAgente["Gestor"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tc.description)
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado para %s", tc.description)

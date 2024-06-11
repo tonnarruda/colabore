@@ -107,7 +107,7 @@ func PostSolicitaFeriasAPPRequestBody() map[string]interface{} {
 	}
 }
 
-func PostGestoresRequestBody() map[string]interface{} {
+func GestoresRequestBody() map[string]interface{} {
 	return map[string]interface{}{
 		"Gestores": []interface{}{
 			map[string]interface{}{

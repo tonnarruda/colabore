@@ -106,3 +106,29 @@ func PostSolicitaFeriasAPPRequestBody() map[string]interface{} {
 		"FimPeriodoGozo":           time.Now().AddDate(0, 0, 20).Format("2006-01-02"),
 	}
 }
+
+func PostGestoresRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Gestores": []interface{}{
+			map[string]interface{}{
+				"NrInscEmpregador": nrInsc,
+				"CPFGestor":        cpf,
+				"MatriculaGestor":  "000031",
+				"ListaGeridos": []interface{}{
+					map[string]interface{}{
+						"CPF":              cpf,
+						"Matricula":        "000031",
+						"NrInscEmpregador": nrInsc,
+						"NomeFantasia":     "PERSI",
+					},
+				},
+				"Geridos": []interface{}{
+					map[string]interface{}{
+						"CPF":       cpf,
+						"Matricula": "000031",
+					},
+				},
+			},
+		},
+	}
+}

@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/patriciapersi/colabore-api/config/structs"
 )
 
 var nrInsc string = "10821992"
@@ -108,27 +107,27 @@ func PostSolicitaFeriasAPPRequestBody() map[string]interface{} {
 }
 
 func GestoresRequestBody() map[string]interface{} {
-	geridoLista := structs.ListaGeridos{
-		CPF:              "12658729375",
-		Matricula:        "000043",
-		NrInscEmpregador: nrInsc,
-		NomeFantasia:     "PERSI",
-	}
-
-	geridoGeridos := structs.Geridos{
-		CPF:       "12658729375",
-		Matricula: "000043",
-	}
-
-	gestor := structs.Gestor{
-		NrInscEmpregador: nrInsc,
-		CPFGestor:        "12658729375",
-		MatriculaGestor:  "000043",
-		ListaGeridos:     []structs.ListaGeridos{geridoLista},
-		Geridos:          []structs.Geridos{geridoGeridos},
-	}
-
 	return map[string]interface{}{
-		"Gestores": []structs.Gestor{gestor},
+		"Gestores": []interface{}{
+			map[string]interface{}{
+				"NrInscEmpregador": nrInsc,
+				"CPFGestor":        "12658729375",
+				"MatriculaGestor":  "000043",
+				"ListaGeridos": []interface{}{
+					map[string]interface{}{
+						"CPF":              "12658729375",
+						"Matricula":        "000043",
+						"NrInscEmpregador": nrInsc,
+						"NomeFantasia":     "PERSI",
+					},
+				},
+				"Geridos": []interface{}{
+					map[string]interface{}{
+						"CPF":       "12658729375",
+						"Matricula": "000043",
+					},
+				},
+			},
+		},
 	}
 }

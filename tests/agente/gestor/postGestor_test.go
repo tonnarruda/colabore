@@ -22,21 +22,21 @@ func TestPostGestores(t *testing.T) {
 		expectedDesc string
 	}{
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Inclusão de Gestores com corpo da requisição válido",
 			setupBody:    true,
 			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Inclusão de Gestores sem corpo da requisição",
 			setupBody:    false,
 			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusBadRequest,
 			expectedDesc: "Corpo da requisição não contém",
 		},
 		{
-			description:  "Inclusão de Gestores",
+			description:  "Inclusão de Gestores sem cabeçalhos de autenticação",
 			setupBody:    false,
 			header:       map[string]string{},
 			expected:     http.StatusUnauthorized,

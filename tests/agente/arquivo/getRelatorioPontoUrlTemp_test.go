@@ -22,7 +22,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 		expectedDesc     string
 	}{
 		{
-			description:      "Buscar Relatorio de Ponto com Sucesso",
+			description:      "Buscar Relatório de Ponto com sucesso",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
 			header:           config.SetupHeadersAgente(),
@@ -31,7 +31,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			expectedDesc:     "Sucesso",
 		},
 		{
-			description:      "Buscar Relatorio de Ponto nrInsc Vazio",
+			description:      "Buscar Relatório de Ponto com nrInscEmpregador vazio",
 			cpf:              "60515860409",
 			nrInscEmpregador: "",
 			header:           config.SetupHeadersAgente(),
@@ -40,7 +40,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			expectedDesc:     "Caminho,NrInscEmpregador",
 		},
 		{
-			description:      "Buscar Relatorio de Ponto CPF Vazio",
+			description:      "Buscar Relatório de Ponto com CPF vazio",
 			cpf:              "",
 			nrInscEmpregador: "10821992",
 			header:           config.SetupHeadersAgente(),
@@ -49,7 +49,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			expectedDesc:     "Caminho,CPF",
 		},
 		{
-			description:      "Buscar Relatorio de Ponto Matricula Vazio",
+			description:      "Buscar Relatório de Ponto com matrícula vazia",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
 			header:           config.SetupHeadersAgente(),
@@ -58,7 +58,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			expectedDesc:     "Caminho,Matricula",
 		},
 		{
-			description:      "Buscar Relatorio de Ponto com Sucesso",
+			description:      "Buscar Relatório de Ponto sem cabeçalhos de autenticação",
 			cpf:              "60515860409",
 			nrInscEmpregador: "10821992",
 			header:           map[string]string{},

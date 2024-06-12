@@ -22,7 +22,7 @@ func TestGetAssinatura(t *testing.T) {
 		expectedDesc string
 	}{
 		{
-			description: "Buscar Assinatura com AnoMes no futuro",
+			description: "Buscar assinatura com AnoMes no futuro",
 			params: map[string]string{
 				"UltimaAtualizacao": "0",
 				"CPF":               "60515860409",
@@ -35,7 +35,7 @@ func TestGetAssinatura(t *testing.T) {
 			expectedDesc: "Não existe relatório assinado para esse colaborador e/ou AnoMes",
 		},
 		{
-			description: "Buscar Assinatura sem dados nos parametros",
+			description: "Buscar assinatura com parâmetros incompletos",
 			params: map[string]string{
 				"AnoMes": time.Now().AddDate(0, 2, 0).Format("012006"),
 			},
@@ -44,7 +44,7 @@ func TestGetAssinatura(t *testing.T) {
 			expectedDesc: "NrInscEmpregador",
 		},
 		{
-			description: "Buscar Assinatura sem dados nos parametros",
+			description: "Buscar assinatura sem cabeçalhos de autenticação",
 			params: map[string]string{
 				"AnoMes": time.Now().AddDate(0, 2, 0).Format("012006"),
 			},

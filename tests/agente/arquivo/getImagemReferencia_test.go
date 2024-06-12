@@ -21,7 +21,7 @@ func TestGetImagem(t *testing.T) {
 		expectedDesc     string
 	}{
 		{
-			description:      "Buscar Imagem com sucesso",
+			description:      "Buscar imagem com sucesso",
 			cpf:              "60515860409",
 			NrInscEmpregador: "10821992",
 			header:           config.SetupHeadersAgente(),
@@ -29,7 +29,7 @@ func TestGetImagem(t *testing.T) {
 			expectedDesc:     "Sucesso",
 		},
 		{
-			description:      "Buscar Imagem com NrInsc Invalido",
+			description:      "Buscar imagem com NrInscEmpregador inválido",
 			cpf:              "60515860409",
 			NrInscEmpregador: "00000000",
 			header:           config.SetupHeadersAgente(),
@@ -37,7 +37,7 @@ func TestGetImagem(t *testing.T) {
 			expectedDesc:     "Arquivo não encontrado",
 		},
 		{
-			description:      "Buscar Imagem com NrInsc Vazio",
+			description:      "Buscar imagem com NrInscEmpregador vazio",
 			cpf:              "60515860409",
 			NrInscEmpregador: "",
 			header:           config.SetupHeadersAgente(),
@@ -45,7 +45,7 @@ func TestGetImagem(t *testing.T) {
 			expectedDesc:     "CaminhoArquivo",
 		},
 		{
-			description:      "Buscar Imagem com CPF Vazio",
+			description:      "Buscar imagem com CPF vazio",
 			cpf:              "",
 			NrInscEmpregador: "10821992",
 			header:           config.SetupHeadersAgente(),
@@ -53,7 +53,7 @@ func TestGetImagem(t *testing.T) {
 			expectedDesc:     "CaminhoArquivo",
 		},
 		{
-			description:      "Buscar Imagem com sucesso",
+			description:      "Buscar imagem sem cabeçalhos de autenticação",
 			cpf:              "60515860409",
 			NrInscEmpregador: "10821992",
 			header:           map[string]string{},

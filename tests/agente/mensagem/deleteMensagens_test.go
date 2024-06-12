@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func precondition() string {
+func getMessageID() string {
 	api := config.SetupApi()
 	requestBody := config.MensagensRequestBody()
 	id := requestBody["ID"].(string)
@@ -41,7 +41,7 @@ func TestDeleteMensagens(t *testing.T) {
 		{
 			description:  "Mensagem existente",
 			header:       config.SetupHeadersAgente(),
-			id:           precondition(),
+			id:           getMessageID(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},

@@ -131,3 +131,40 @@ func GestoresRequestBody() map[string]interface{} {
 		},
 	}
 }
+
+func GestoresRhRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Gestores": []interface{}{
+			map[string]interface{}{
+				"NrInscEmpregador": nrInsc,
+				"CPFGestor":        "12658729375",
+				"MatriculaGestor":  "000043",
+				"ListaGeridos": []interface{}{
+					map[string]interface{}{
+						"CPF":                "12658729375",
+						"Matricula":          "000043",
+						"NrInscEmpregador":   nrInsc,
+						"NomeFantasia":       "PERSI",
+						"Cargo":              "Analista de Mídia",
+						"AreaOrganizacional": "ADMINISTRAÇÕ",
+					},
+				},
+				"Geridos": []interface{}{
+					map[string]interface{}{
+						"NrInscEmpregador": nrInsc,
+						"CPFGerido":        "12658729375",
+						"MatriculaGerido":  "000043",
+						"ListaGestores": []interface{}{
+							map[string]interface{}{
+								"NrInscEmpregador": nrInsc,
+								"Gestores": []string{
+									"12658729375",
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}

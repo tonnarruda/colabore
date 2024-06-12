@@ -12,10 +12,8 @@ import (
 //Inserimos as definições para que o usuário possa solicitar férias
 
 func TestPostDefinicoesFerias(t *testing.T) {
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-		t.Fatalf("%v", err)
-	}
+	testutil.LoadEnv()
+
 	testCases := []struct {
 		description  string
 		setupBody    bool

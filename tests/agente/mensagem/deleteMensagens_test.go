@@ -29,10 +29,8 @@ func precondition() string {
 
 // Testa a exclusão de uma mensagem
 func TestDeleteMensagens(t *testing.T) {
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-		t.Fatalf("%v", err)
-	}
+	testutil.LoadEnv()
+
 	testsCases := []struct {
 		description  string
 		header       map[string]string

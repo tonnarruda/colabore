@@ -12,9 +12,7 @@ import (
 )
 
 func TestDeleteGestor(t *testing.T) {
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-	}
+	testutil.LoadEnv()
 
 	testCases := []struct {
 		description  string

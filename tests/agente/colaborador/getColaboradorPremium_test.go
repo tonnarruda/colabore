@@ -10,11 +10,8 @@ import (
 )
 
 func TestColaboradorPreemium(t *testing.T) {
+	testutil.LoadEnv()
 
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-		t.Fatalf("%v", err)
-	}
 	testCases := []struct {
 		description  string
 		header       map[string]string

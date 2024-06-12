@@ -10,11 +10,8 @@ import (
 )
 
 func TestPostDispositivos(t *testing.T) {
-	if err := testutil.LoadEnv(); err != nil {
-		t.Fatalf("Erro ao carregar o arquivo .env: %v", err)
-		t.Fatalf("%v", err)
-	}
-	// Define os casos de teste em uma tabela
+	testutil.LoadEnv()
+
 	testCases := []struct {
 		description  string
 		setupBody    bool

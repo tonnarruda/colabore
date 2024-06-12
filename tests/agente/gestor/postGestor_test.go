@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPostSolicitaFerias_(t *testing.T) {
+func TestPostGestores(t *testing.T) {
 	testutil.LoadEnv()
 
 	testCases := []struct {
@@ -50,7 +50,6 @@ func TestPostSolicitaFerias_(t *testing.T) {
 			var body interface{}
 			if tc.setupBody {
 				body = config.GestoresRequestBody()
-
 			}
 
 			resp, err := api.Client.R().

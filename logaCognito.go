@@ -4,22 +4,23 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
-)
-
-const (
-	USER_POOL_ID = "us-east-1_LjA7B5WOO" // Substitua pelo ID do seu User Pool
-	CLIENT_ID    = "your_client_id"      // Substitua pelo ID do seu Cliente
-	USERNAME     = "60515860409"         // Substitua pelo nome de usuário
-	PASSWORD     = "12345678"            // Substitua pela senha do usuário
+	testutil "github.com/patriciapersi/colabore-api/util"
 )
 
 func main() {
-	// Carregar a configuração padrão do SDK
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+	testutil.LoadEnv()
+
+	// Definir a região da AWS que você deseja usar
+	region := "us-west-1" // Substitua com a região desejada
+
+	// Carregar a configuração do SDK com a região especificada
+	cfg, err := config.LoadDefaultConfig(context.TODO(),
+		config.WithRegion(region))
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -31,10 +32,10 @@ func main() {
 	params := &cognitoidentityprovider.InitiateAuthInput{
 		AuthFlow: "USER_PASSWORD_AUTH",
 		AuthParameters: map[string]string{
-			"USERNAME": USERNAME,
-			"PASSWORD": PASSWORD,
+			"USERNAME": os.Getenv("USERNAME"),
+			"PASSWORD": os.Getenv("PASSWORD"),
 		},
-		ClientId: aws.String(CLIENT_ID),
+		ClientId: aws.String(os.Getenv("CLIENT_ID")),
 	}
 
 	// Chamar o método InitiateAuth

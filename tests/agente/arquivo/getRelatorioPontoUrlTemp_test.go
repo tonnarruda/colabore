@@ -19,6 +19,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 		header           map[string]string
 		matricula        string
 		expected         int
+		expectedDesc     string
 	}{
 		{
 			description:      "Buscar Relatorio de Ponto com Sucesso",
@@ -27,6 +28,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			header:           config.SetupHeadersAgente(),
 			matricula:        "000031",
 			expected:         http.StatusOK,
+			expectedDesc:     "Sucesso",
 		},
 		{
 			description:      "Buscar Relatorio de Ponto nrInsc Vazio",
@@ -35,6 +37,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			header:           config.SetupHeadersAgente(),
 			matricula:        "000031",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "Caminho,NrInscEmpregador",
 		},
 		{
 			description:      "Buscar Relatorio de Ponto CPF Vazio",
@@ -43,6 +46,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			header:           config.SetupHeadersAgente(),
 			matricula:        "000031",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "Caminho,CPF",
 		},
 		{
 			description:      "Buscar Relatorio de Ponto Matricula Vazio",
@@ -51,6 +55,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			header:           config.SetupHeadersAgente(),
 			matricula:        "",
 			expected:         http.StatusBadRequest,
+			expectedDesc:     "Caminho,Matricula",
 		},
 		{
 			description:      "Buscar Relatorio de Ponto com Sucesso",
@@ -59,6 +64,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 			header:           map[string]string{},
 			matricula:        "000031",
 			expected:         http.StatusUnauthorized,
+			expectedDesc:     "Unauthorized",
 		},
 	}
 
@@ -79,6 +85,7 @@ func TestGetRelatorioPontoUrlTemp(t *testing.T) {
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

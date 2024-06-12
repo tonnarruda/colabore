@@ -9,7 +9,6 @@ import (
 var nrInsc string = "10821992"
 var cpf string = "60515860409"
 
-// NewRequestBody retorna o corpo da requisição formatado conforme necessário.
 func DefinicoesRequestBody() map[string]interface{} {
 	return map[string]interface{}{
 		"Definicoes": []map[string]interface{}{

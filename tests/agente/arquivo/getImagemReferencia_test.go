@@ -5,9 +5,8 @@ import (
 	"testing"
 
 	"github.com/patriciapersi/colabore-api/config"
-	"github.com/stretchr/testify/assert"
-
 	testutil "github.com/patriciapersi/colabore-api/util"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetImagem(t *testing.T) {

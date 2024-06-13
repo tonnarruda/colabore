@@ -106,6 +106,30 @@ func PostSolicitaFeriasAPPRequestBody() map[string]interface{} {
 	}
 }
 
+func DeleteImagemReferencia() map[string]interface{} {
+	return map[string]interface{}{
+		"CPF":              "12658729375",
+		"NrInscEmpregador": nrInsc,
+	}
+}
+
+func PostAssinaturaRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"NrInscEmpregador": nrInsc,
+		"AnoMes":           time.Now().AddDate(0, 0, 0).Format("200601"),
+		"Liberado":         true,
+	}
+}
+
+func DeleteAssinaturaRequestBody() map[string]interface{} {
+	return map[string]interface{}{
+		"CPF":              "12658729375",
+		"NrInscEmpregador": "10821992",
+		"Matricula":        "000043",
+		"AnoMes":           time.Now().AddDate(0, 0, 0).Format("200601"),
+	}
+}
+
 func GestoresRequestBody() map[string]interface{} {
 	return map[string]interface{}{
 		"Gestores": []interface{}{

@@ -14,7 +14,7 @@ import (
 // Esta função é a precondição de ter a solicitação de ferias enviada pelo app
 func precondition() {
 	api := config.SetupApi()
-	_, _ = api.Client.R().
+	api.Client.R().
 		SetBody(config.PostSolicitaFeriasAPPRequestBody()).
 		SetHeaders(config.SetupHeadersApp()).
 		Post(api.EndpointsApp["POSTappferias"])

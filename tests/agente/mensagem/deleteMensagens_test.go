@@ -7,7 +7,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -29,7 +28,6 @@ func getMessageID() string {
 
 // Testa a exclusão de uma mensagem
 func TestDeleteMensagens(t *testing.T) {
-	testutil.LoadEnv()
 
 	testsCases := []struct {
 		description  string

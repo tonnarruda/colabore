@@ -6,12 +6,10 @@ import (
 	"time"
 
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetColaboradorFremium(t *testing.T) {
-	testutil.LoadEnv()
 
 	testCases := []struct {
 		description  string

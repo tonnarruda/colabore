@@ -5,14 +5,12 @@ import (
 	"testing"
 
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 //Inserimos as definições para que o usuário possa solicitar férias
 
 func TestPostDefinicoesFerias(t *testing.T) {
-	testutil.LoadEnv()
 
 	testCases := []struct {
 		description  string

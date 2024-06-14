@@ -5,12 +5,10 @@ import (
 	"testing"
 
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestDeleteImagemReferencia(t *testing.T) {
-	testutil.LoadEnv()
 
 	testsCases := []struct {
 		description  string

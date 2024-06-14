@@ -17,8 +17,11 @@ type API struct {
 	EndpointsApp    map[string]string
 }
 
-func SetupHeadersAgente() map[string]string {
+func init() {
 	testutil.LoadEnv()
+}
+
+func SetupHeadersAgente() map[string]string {
 	return map[string]string{
 		"Content-Type":                  "application/json",
 		"x-api-key":                     os.Getenv("X_API_KEY"),
@@ -29,8 +32,6 @@ func SetupHeadersAgente() map[string]string {
 }
 
 func SetupHeadersApp() map[string]string {
-	testutil.LoadEnv()
-
 	token, _ := ReturnTokenId()
 
 	return map[string]string{
@@ -105,9 +106,9 @@ func SetupApi() *API {
 }
 
 func ReturnTokenId() (string, error) {
-	clientID := "1d339letjh0ndq27pm3e9gvfko"
-	username := "60515860409"
-	password := "12345678"
+	clientID := os.Getenv("CLIENT_ID")
+	username := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
 
 	// Configuração da sessão AWS
 	sess, err := session.NewSessionWithOptions(session.Options{

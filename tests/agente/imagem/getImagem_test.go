@@ -6,12 +6,10 @@ import (
 
 	"github.com/bxcodec/faker/v3"
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetImagem(t *testing.T) {
-	testutil.LoadEnv()
 
 	testCases := []struct {
 		description  string

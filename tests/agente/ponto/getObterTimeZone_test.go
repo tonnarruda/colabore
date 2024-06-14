@@ -5,12 +5,10 @@ import (
 	"testing"
 
 	"github.com/patriciapersi/colabore-api/config"
-	testutil "github.com/patriciapersi/colabore-api/util"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetTimeZone(t *testing.T) {
-	testutil.LoadEnv()
 
 	// Define os casos de teste em uma tabela
 	testCases := []struct {

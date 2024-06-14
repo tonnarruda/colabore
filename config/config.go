@@ -94,7 +94,8 @@ func SetupApi() *API {
 	}
 
 	endpointsApp := map[string]string{
-		"Appferias": "/api/app/Ferias",
+		"Appferias":      "/api/app/Ferias",
+		"AbonoHistorico": "/api/app/Abono/Historico",
 	}
 
 	return &API{

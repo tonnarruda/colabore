@@ -49,8 +49,8 @@ func SetupApi() *API {
 		"AssinaturaDigitalFormData":                "/api/agente/AssinaturaDigital/FormData",
 		"Candidato":                                "/api/agente/Candidato",
 		"CandidatoRetificar":                       "/api/agente/Candidato/Retificar",
-		"Acesso":                                   "/api/agente-acesso",
-		"Agente":                                   "/api/agente",
+		"Acesso":                                   "/api/agente-acesso", //NAO SERÁ AUTOMATIZADO
+		"Agente":                                   "/api/agente",        //NAO SERÁ AUTOMATIZADO
 		"Colaborador":                              "/api/agente/Colaborador",
 		"ColaboradorAtivacao":                      "/api/agente/Colaborador/Ativacao",
 		"ColaboradorFreemium":                      "/api/agente/Colaborador/Freemium",

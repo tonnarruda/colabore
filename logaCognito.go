@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -27,6 +28,12 @@ func main() {
 
 	// Criar um cliente CognitoIdentityProvider
 	cognitoClient := cognitoidentityprovider.NewFromConfig(cfg)
+
+	clientDetails, err := json.MarshalIndent(cognitoClient, "", "  ")
+	if err != nil {
+		log.Fatalf("failed to marshal cognitoClient, %v", err)
+	}
+	fmt.Printf("Cognito Client Details: %s\n", string(clientDetails))
 
 	// Configurar os parâmetros da requisição
 	params := &cognitoidentityprovider.InitiateAuthInput{

@@ -1,8 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/go-resty/resty/v2"
 	testutil "github.com/patriciapersi/colabore-api/util"
 )
@@ -26,9 +30,12 @@ func SetupHeadersAgente() map[string]string {
 
 func SetupHeadersApp() map[string]string {
 	testutil.LoadEnv()
+
+	token, _ := ReturnTokenId()
+
 	return map[string]string{
 		"Content-Type": "application/json",
-		"awsauthtoken": "eyJraWQiOiJVWEkwNXFBb2VDeTJPY1BGM21iOGJtWXlyWGk4N1N3K1ZqWXhIRWV3K2RVPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyYjljZmU1Mi1hZGE0LTQ0NzMtYmRkYi05NDMyOTRkNzc0OTciLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfTGpBN0I1V09PIiwiY29nbml0bzp1c2VybmFtZSI6IjI2Mzg0ODEzNzg1IiwiYXVkIjoiNDVxb2RmNWhsNGdncnY1b2tpOGM5amdnYmoiLCJldmVudF9pZCI6IjZkNmJhZmE4LTdmNDQtNDc3My05NDFjLTgzZTQ5MWE1NzAwZSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzAwMjQxNjM2LCJleHAiOjE3MDAyNDUyMzYsImlhdCI6MTcwMDI0MTYzNiwiZmFtaWx5X25hbWUiOiJNYXJpYSIsImVtYWlsIjoiZm9ydGVzY29sYWJvcmVAZm9ydGVzdGVjbm9sb2dpYS5jb20uYnIifQ.CjCHh0Izg4Tvd9ykrHDknikJfU5P2yiB241ijqjo1h0atv_bfZDpKld6ymiHm6gXqQqRBhd0V2hmpDiCSJgPKEDWAih8zz1s2cND7P3HoQzuR2-1C5B3ZhU1SjX3R7K4Ui2L-sy6skkw2ZWb0s9gDlpdsLyoR2S6UefWaAumt1dh6QqHFw4zKGztl-TS9fGwMEFKi7nF-DRl-PbVKE6ALPXsf0MGwm947lSNpZU04zTzfJHHSh-ARIvZrQMSNb-3AjL2z9PAAA8On-KJJUGq2Ztiy9HO3m9a7cy75GjwQa4jjk_480IkNKP7923K3ugby5SeXw_8x0AL7VODQm_UVQ",
+		"awsauthtoken": token,
 	}
 }
 
@@ -95,4 +102,46 @@ func SetupApi() *API {
 		EndpointsApp:    endpointsApp,
 	}
 
+}
+
+func ReturnTokenId() (string, error) {
+	clientID := "1d339letjh0ndq27pm3e9gvfko"
+	username := "60515860409"
+	password := "12345678"
+
+	// Configuração da sessão AWS
+	sess, err := session.NewSessionWithOptions(session.Options{
+		Config: aws.Config{
+			Region: aws.String("us-east-1"),
+		},
+		SharedConfigState: session.SharedConfigEnable,
+	})
+	if err != nil {
+		return "", fmt.Errorf("erro ao criar sessão AWS: %v", err)
+	}
+
+	// Criando cliente Cognito Identity Provider
+	cognitoClient := cognitoidentityprovider.New(sess)
+
+	// Autenticação do usuário
+	authParams := map[string]*string{
+		"USERNAME": aws.String(username),
+		"PASSWORD": aws.String(password),
+	}
+
+	authInput := &cognitoidentityprovider.InitiateAuthInput{
+		AuthFlow:       aws.String("USER_PASSWORD_AUTH"),
+		AuthParameters: authParams,
+		ClientId:       aws.String(clientID),
+	}
+
+	authOutput, err := cognitoClient.InitiateAuth(authInput)
+	if err != nil {
+		return "", fmt.Errorf("erro ao iniciar autenticação: %v", err)
+	}
+
+	// Obtendo tokens do resultado
+	idToken := aws.StringValue(authOutput.AuthenticationResult.IdToken)
+
+	return idToken, nil
 }

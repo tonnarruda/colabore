@@ -25,13 +25,23 @@ func TestPostSolicitaFerias_(t *testing.T) {
 
 	testCases := []struct {
 		description  string
+		setupBody    bool
 		header       map[string]string
 		expected     int
 		expectedDesc string
 		precondition func()
 	}{
 		{
+			description:  "Test Success",
+			setupBody:    true,
+			header:       config.SetupHeadersAgente(),
+			expected:     http.StatusOK,
+			expectedDesc: "Sucesso",
+			precondition: precondition,
+		},
+		{
 			description:  "Test BadRequest",
+			setupBody:    false,
 			header:       config.SetupHeadersAgente(),
 			expected:     http.StatusBadRequest,
 			expectedDesc: "Corpo da requisição não contém solicitações de férias",
@@ -39,6 +49,7 @@ func TestPostSolicitaFerias_(t *testing.T) {
 		},
 		{
 			description:  "Test Unauthorized",
+			setupBody:    true,
 			header:       map[string]string{},
 			expected:     http.StatusUnauthorized,
 			expectedDesc: "Unauthorized",
@@ -55,8 +66,15 @@ func TestPostSolicitaFerias_(t *testing.T) {
 
 			api := config.SetupApi()
 
+			var body interface{}
+			if tc.setupBody {
+				body = config.PostSolicitaFeriasRequestBody()
+
+			}
+
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
+				SetBody(body).
 				Post(api.EndpointsAgente["Ferias"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tc.description)

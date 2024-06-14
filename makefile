@@ -14,3 +14,6 @@ all: clean test
 # Medir o tempo de execução dos testes
 timed-test:
 	time go test ./tests/...
+
+
+#Para executar o comando no terminal basta usar: make test e os testes iniciam

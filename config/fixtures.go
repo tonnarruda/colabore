@@ -192,3 +192,24 @@ func GestoresRhRequestBody() map[string]interface{} {
 		},
 	}
 }
+
+func PostSolicitaAbonoBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Abonos": []map[string]interface{}{
+			{
+				"NrInscEmpregador":    nrInsc,
+				"Evento":              "3",
+				"CPF":                 cpf,
+				"Matricula":           "000031",
+				"Nome":                "Sandra Simone Cecília Martins",
+				"DataAbono":           "2024-06-12",
+				"MotivoId":            "00101",
+				"StatusSol":           "1",
+				"DataSolicitacao":     time.Now().Format("2006-01-02"),
+				"DataSolicitacaoTz":   "GMT-0300",
+				"DataSolicitacaoTzId": "America/Fortaleza",
+				"Turnos":              []string{"1", "2", "3", "4"},
+			},
+		},
+	}
+}

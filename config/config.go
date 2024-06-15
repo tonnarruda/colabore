@@ -46,6 +46,8 @@ func SetupApi() *API {
 		SetBaseURL("https://fortescolabore2.fortestecnologia.com.br/homolog-next")
 
 	endpointsAgente := map[string]string{
+		"AbonoAprovaReprova":                       "/api/agente/Abono",
+		"SolicitaAbono":                            "/api/agente/Abono/Abono",
 		"ImagemReferencia":                         "/api/agente/Arquivo/ImagemReferencia",
 		"ArquivoRelatorioPontoURLTemporaria":       "/api/agente/Arquivo/RelatorioPonto/URLTemporaria",
 		"AssinaturaLiberar":                        "/api/agente/Assinatura/Liberar",

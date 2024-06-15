@@ -48,15 +48,15 @@ func SetupApi() *API {
 	endpointsAgente := map[string]string{
 		"AbonoAprovaReprova":                       "/api/agente/Abono",
 		"SolicitaAbono":                            "/api/agente/Abono/Abono",
-		"ImagemReferencia":                         "/api/agente/Arquivo/ImagemReferencia",
-		"ArquivoRelatorioPontoURLTemporaria":       "/api/agente/Arquivo/RelatorioPonto/URLTemporaria",
+		"ImagemReferencia":                         "/api/agente/Arquivo/ImagemReferencia",             //NAO SERÁ AUTOMATIZADO
+		"ArquivoRelatorioPontoURLTemporaria":       "/api/agente/Arquivo/RelatorioPonto/URLTemporaria", //NAO SERÁ AUTOMATIZADO
 		"AssinaturaLiberar":                        "/api/agente/Assinatura/Liberar",
 		"Assinatura":                               "/api/agente/Assinatura",
 		"AssinaturaContestacao":                    "/api/agente/Assinatura/Contestacao",
 		"AssinaturaContestacaoStatus":              "/api/agente/Assinatura/Contestacao/Status",
 		"AssinaturaRelatorioPonto":                 "/api/agente/Assinatura/RelatorioPonto",
-		"AssinaturaDigital":                        "/api/agente/AssinaturaDigital",
-		"AssinaturaDigitalFormData":                "/api/agente/AssinaturaDigital/FormData",
+		"AssinaturaDigital":                        "/api/agente/AssinaturaDigital",          //NAO SERÁ AUTOMATIZADO
+		"AssinaturaDigitalFormData":                "/api/agente/AssinaturaDigital/FormData", //NAO SERÁ AUTOMATIZADO
 		"Candidato":                                "/api/agente/Candidato",
 		"CandidatoRetificar":                       "/api/agente/Candidato/Retificar",
 		"Acesso":                                   "/api/agente-acesso", //NAO SERÁ AUTOMATIZADO
@@ -76,22 +76,22 @@ func SetupApi() *API {
 		"FolhaDePagamento":                         "/api/agente/FolhaDePagamento",
 		"Gestor":                                   "/api/agente/Gestor",
 		"GestorRH":                                 "/api/agente/Gestor/RH",
-		"GETimagem":                                "/api/agente/Imagem",
+		"GETimagem":                                "/api/agente/Imagem", //NAO SERÁ AUTOMATIZADO
 		"LicencaReconhecimentoFacial":              "/api/agente/Licenca/ReconhecimentoFacial",
-		"LicenciadoEmailParaNotificacoesDaEmpresa": "/api/agente/Licenciado/EmailParaNotificacoesDaEmpresa",
-		"LicenciadoLogo":                           "/api/agente/Licenciado/Logo",
+		"LicenciadoEmailParaNotificacoesDaEmpresa": "/api/agente/Licenciado/EmailParaNotificacoesDaEmpresa", //NAO SERÁ AUTOMATIZADO
+		"LicenciadoLogo":                           "/api/agente/Licenciado/Logo",                           //NAO SERÁ AUTOMATIZADO
 		"LicenciadoDefinicoes":                     "/api/agente/Licenciado/Definicoes",
 		"Mensagem":                                 "/api/agente/Mensagem",
-		"Numerador":                                "/api/agente/Numerador",
+		"Numerador":                                "/api/agente/Numerador", //NAO SERÁ AUTOMATIZADO
 		"Pesquisa":                                 "/api/agente/Pesquisa",
 		"PesquisaRespostas":                        "/api/agente/Pesquisa/Respostas",
 		"PesquisaRespostasPorPagina":               "/api/agente/Pesquisa/RespostasPorPagina",
 		"PesquisaResposta":                         "/api/agente/Pesquisa/Resposta",
 		"PontoBatidas":                             "/api/agente/Ponto/Batidas",
 		"PontoProcessamentoRedefinicao":            "/api/agente/Ponto/Processamento/Redefinicao",
-		"PontoAssinaturaRetroativaSolicitacao":     "/api/agente/Ponto/AssinaturaRetroativa/Solicitacao",
+		"PontoAssinaturaRetroativaSolicitacao":     "/api/agente/Ponto/AssinaturaRetroativa/Solicitacao", //NAO SERÁ AUTOMATIZADO
 		"PontoObterTimeZone":                       "/api/agente/Ponto/ObterTimeZone",
-		"Termo":                                    "/api/agente/Termo",
+		"Termo":                                    "/api/agente/Termo", //NAO SERÁ AUTOMATIZADO
 		"VersaoApp":                                "/api/agente/VersaoApp",
 	}
 

@@ -25,20 +25,20 @@ func TestGetAbonoHistorico(t *testing.T) {
 			expected:         http.StatusOK,
 			expectedDesc:     "Sucesso",
 		},
-		// {
-		// 	description:      "Buscar Histórico de Abono sem o parametro de EMpregador",
-		// 	NrInscEmpregador: "",
-		// 	header:           config.SetupHeadersApp(),
-		// 	expected:         http.StatusBadRequest,
-		// 	expectedDesc:     "NrInscEmpregador",
-		// },
-		// {
-		// 	description:      "Buscar Histórico de Abono sem o parametro de EMpregador",
-		// 	NrInscEmpregador: "",
-		// 	header:           map[string]string{},
-		// 	expected:         http.StatusUnauthorized,
-		// 	expectedDesc:     "Unauthorized",
-		// },
+		{
+			description:      "Buscar Histórico de Abono sem o parametro de EMpregador",
+			NrInscEmpregador: "",
+			header:           config.SetupHeadersApp(),
+			expected:         http.StatusBadRequest,
+			expectedDesc:     "NrInscEmpregador",
+		},
+		{
+			description:      "Buscar Histórico de Abono sem o parametro de EMpregador",
+			NrInscEmpregador: "",
+			header:           map[string]string{},
+			expected:         http.StatusUnauthorized,
+			expectedDesc:     "Unauthorized",
+		},
 	}
 
 	for _, tc := range testCases {
@@ -57,8 +57,8 @@ func TestGetAbonoHistorico(t *testing.T) {
 
 			assert.NoError(t, err, "Erro ao fazer a requisição")
 			fmt.Println(resp.StatusCode())
-			// assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
-			// assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
+			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado")
+			assert.Contains(t, string(resp.Body()), tc.expectedDesc, "Descrição de resposta inesperada")
 		})
 	}
 }

@@ -109,14 +109,9 @@ func SetupApi() *API {
 }
 
 func ReturnTokenId() (string, error) {
-	fmt.Println()
 	clientID := os.Getenv("CLIENT_ID")
 	username := os.Getenv("USERNAME")
 	password := os.Getenv("PASSWORD")
-
-	fmt.Println(clientID)
-	fmt.Println(username)
-	fmt.Println(password)
 
 	// Configuração da sessão AWS
 	sess, err := session.NewSessionWithOptions(session.Options{

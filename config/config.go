@@ -110,8 +110,10 @@ func SetupApi() *API {
 
 func ReturnTokenId() (string, error) {
 	clientID := os.Getenv("CLIENT_ID")
-	username := os.Getenv("USERNAME")
+	user := os.Getenv("USER")
 	password := os.Getenv("PASSWORD")
+
+	fmt.Println(user)
 
 	// Configuração da sessão AWS
 	sess, err := session.NewSessionWithOptions(session.Options{
@@ -129,7 +131,7 @@ func ReturnTokenId() (string, error) {
 
 	// Autenticação do usuário
 	authParams := map[string]*string{
-		"USERNAME": aws.String(username),
+		"USERNAME": aws.String(user),
 		"PASSWORD": aws.String(password),
 	}
 
@@ -146,8 +148,6 @@ func ReturnTokenId() (string, error) {
 
 	// Obtendo tokens do resultado
 	idToken := aws.StringValue(authOutput.AuthenticationResult.IdToken)
-
-	fmt.Println(idToken)
 
 	return idToken, nil
 }

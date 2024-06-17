@@ -147,5 +147,7 @@ func ReturnTokenId() (string, error) {
 	// Obtendo tokens do resultado
 	idToken := aws.StringValue(authOutput.AuthenticationResult.IdToken)
 
+	fmt.Println(idToken)
+
 	return idToken, nil
 }

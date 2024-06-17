@@ -98,6 +98,8 @@ func SetupApi() *API {
 	endpointsApp := map[string]string{
 		"Appferias":      "/api/app/Ferias",
 		"AbonoHistorico": "/api/app/Abono/Historico",
+		"Folha":          "/api/app/FolhaDePagamento",
+		"Mensagem":       "/api/app/Mensagem",
 	}
 
 	return &API{
@@ -110,10 +112,8 @@ func SetupApi() *API {
 
 func ReturnTokenId() (string, error) {
 	clientID := os.Getenv("CLIENT_ID")
-	user := os.Getenv("USER")
+	cpf := os.Getenv("CPF")
 	password := os.Getenv("PASSWORD")
-
-	fmt.Println(user)
 
 	// Configuração da sessão AWS
 	sess, err := session.NewSessionWithOptions(session.Options{
@@ -131,7 +131,7 @@ func ReturnTokenId() (string, error) {
 
 	// Autenticação do usuário
 	authParams := map[string]*string{
-		"USERNAME": aws.String(user),
+		"USERNAME": aws.String(cpf),
 		"PASSWORD": aws.String(password),
 	}
 

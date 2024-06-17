@@ -206,3 +206,18 @@ func PostSolicitaAbonoBody() map[string]interface{} {
 		},
 	}
 }
+
+func DeleteMensagemAppRequestBody(mensagemID string) map[string]interface{} {
+	return map[string]interface{}{
+		"NrInscEmpregador": nrInsc,
+		"mensagemId":       mensagemID,
+		"CPF":              cpf,
+	}
+}
+
+func PutMensagemLidaAppRequestBody(mensagemID string) map[string]interface{} {
+	return map[string]interface{}{
+		"NrInscEmpregador": nrInsc,
+		"mensagemId":       mensagemID,
+	}
+}

@@ -36,28 +36,28 @@ func TestDeleteMensagens(t *testing.T) {
 		expectedDesc string
 	}{
 		{
-			description:  "Mensagem existente",
+			description:  "Deletar Mensagem com sucesso",
 			header:       config.SetupHeadersApp(),
 			id:           getMessageID(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
-			description:  "ID inexistente",
+			description:  "Tentativa de deletar mensagem com ID inexistente",
 			header:       config.SetupHeadersApp(),
 			id:           uuid.New().String(),
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
-			description:  "ID vazio",
+			description:  "Tentativa de deletar mensagem com ID vazio",
 			header:       config.SetupHeadersApp(),
 			id:           "",
 			expected:     http.StatusBadRequest,
 			expectedDesc: "MensagemId",
 		},
 		{
-			description:  "Unauthorized",
+			description:  "Tentativa de deletar mensagem com header vazio - Unauthorized",
 			header:       map[string]string{},
 			id:           "",
 			expected:     http.StatusUnauthorized,

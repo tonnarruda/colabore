@@ -39,7 +39,7 @@ func TestAtualizacaoMensagens(t *testing.T) {
 		expectedDesc     string
 	}{
 		{
-			description:      "Mensagem existente",
+			description:      "Atualizar Mensagem com Sucesso",
 			header:           config.SetupHeadersApp(),
 			setupBody:        true,
 			NrInscEmpregador: "10821992",
@@ -48,7 +48,7 @@ func TestAtualizacaoMensagens(t *testing.T) {
 			expectedDesc:     "Sucesso",
 		},
 		{
-			description:      "Mensagem existente",
+			description:      "Tentar Atualizar Mensagem com NrInscEMpregado Vazio",
 			header:           config.SetupHeadersApp(),
 			setupBody:        false,
 			NrInscEmpregador: "",
@@ -57,7 +57,7 @@ func TestAtualizacaoMensagens(t *testing.T) {
 			expectedDesc:     "ERRO",
 		},
 		{
-			description:      "Mensagem existente",
+			description:      "Tentar Atualizar Mensagem com header Vazio",
 			header:           map[string]string{},
 			setupBody:        false,
 			NrInscEmpregador: "",

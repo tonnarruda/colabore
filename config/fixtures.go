@@ -206,3 +206,21 @@ func PostSolicitaAbonoBody() map[string]interface{} {
 		},
 	}
 }
+
+func PostAprovaAbonoBody() map[string]interface{} {
+	return map[string]interface{}{
+		"Abonos": []map[string]interface{}{
+			{
+				"NrInscEmpregador": "10821992",
+				"Evento":           "3",
+				"CPF":              "60515860409",
+				"Matricula":        "000031",
+				"Nome":             "Sandra Simone Cecília Martins",
+				"DataAbono":        "2024-06-12",
+				"MotivoId":         "00101",
+				"StatusSol":        "2",
+				"Turnos":           []string{"1", "2", "3", "4"},
+			},
+		},
+	}
+}

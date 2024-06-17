@@ -47,7 +47,7 @@ func SetupApi() *API {
 
 	endpointsAgente := map[string]string{
 		"AbonoAprovaReprova":                       "/api/agente/Abono",
-		"SolicitaAbono":                            "/api/agente/Abono/Abono",
+		"ReverterAbono":                            "/api/agente/Abono/Redefinicao",
 		"ImagemReferencia":                         "/api/agente/Arquivo/ImagemReferencia",             //NAO SERÁ AUTOMATIZADO
 		"ArquivoRelatorioPontoURLTemporaria":       "/api/agente/Arquivo/RelatorioPonto/URLTemporaria", //NAO SERÁ AUTOMATIZADO
 		"AssinaturaLiberar":                        "/api/agente/Assinatura/Liberar",

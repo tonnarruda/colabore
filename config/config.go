@@ -100,6 +100,7 @@ func SetupApi() *API {
 		"AbonoHistorico": "/api/app/Abono/Historico",
 		"Folha":          "/api/app/FolhaDePagamento",
 		"Mensagem":       "/api/app/Mensagem",
+		"MensagemLida":   "/api/app/Mensagem/Ler",
 	}
 
 	return &API{

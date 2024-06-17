@@ -53,7 +53,7 @@ func TestPostAprovaAbono(t *testing.T) {
 			resp, err := api.Client.R().
 				SetHeaders(tc.header).
 				SetBody(body).
-				Post(api.EndpointsAgente["AbonoAprovaReprova"])
+				Post(api.EndpointsAgente["Abono"])
 
 			assert.NoError(t, err, "Erro ao fazer a requisição para %s", tc.description)
 			assert.Equal(t, tc.expected, resp.StatusCode(), "Status de resposta inesperado para %s", tc.description)

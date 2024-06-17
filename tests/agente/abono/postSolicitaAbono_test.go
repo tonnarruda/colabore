@@ -18,18 +18,25 @@ func TestPostSolicitaAbono(t *testing.T) {
 		expectedDesc string
 	}{
 		{
-			description:  "Teste Solicita abono",
+			description:  "Envia Solicitação de Abono com Sucesso",
 			header:       config.SetupHeadersAgente(),
 			setupBody:    true,
 			expected:     http.StatusOK,
 			expectedDesc: "Sucesso",
 		},
 		{
-			description:  "Teste envio de solicitações sem body",
+			description:  "Tentativa de Encio de solicitação de abono sem body",
 			header:       config.SetupHeadersAgente(),
 			setupBody:    false,
 			expected:     http.StatusBadRequest,
-			expectedDesc: "ERRO",
+			expectedDesc: "Corpo da requisição não contém nenhum abono",
+		},
+		{
+			description:  "Tentativa de Envio de solicitação de abono sem header - Unauthorized",
+			header:       map[string]string{},
+			setupBody:    false,
+			expected:     http.StatusUnauthorized,
+			expectedDesc: "Unauthorized",
 		},
 	}
 
